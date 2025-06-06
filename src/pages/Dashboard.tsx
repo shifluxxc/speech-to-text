@@ -3,6 +3,8 @@ import { useAuth } from '@/contexts/AuthContext';
 import axios from 'axios';
 import { useToast } from '@/hooks/use-toast';
 
+const baseURL = process.env.BaseURL; ;
+
 import AudioRecorder from '@/components/AudioRecorder';
 import FileUploader from '@/components/FileUploader';
 import TranscriptionDisplay from '@/components/TranscriptionDisplay';
@@ -19,13 +21,15 @@ const Dashboard = () => {
   const [isLoadingHistory, setIsLoadingHistory] = useState(true);
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
 
+
+
   // Fetch user's transcription history from your server
   useEffect(() => {
     const fetchHistory = async () => {
       if (!user) return;
 
       try {
-        const res = await axios.get(`http://localhost:5000/api/users/me`);
+        const res = await axios.get(`${baseURL}/api/users/me`);
         // Assuming user.transcriptions is populated with transcription objects
         setHistoryItems(
           (res.data.user.transcriptions || []).map((t: any) => ({
@@ -65,7 +69,7 @@ const Dashboard = () => {
 
     try {
       // Send to your backend API
-      const res = await axios.post('http://localhost:5000/api/transcriptions', formData, {
+      const res = await axios.post(`${baseURL}/api/transcriptions`, formData, {
         headers: { 'Content-Type': 'multipart/form-data' }
       });
 

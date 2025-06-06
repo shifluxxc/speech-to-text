@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useEffect, useState, ReactNode } from 'react';
 import axios from 'axios';
-
+const baseURL = process.env.BaseURL; 
 type User = {
   _id: string;
   username: string;
@@ -50,7 +50,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const signIn = async (email: string, password: string) => {
     setIsLoading(true);
     try {
-      const res = await axios.post('http://localhost:5000/api/users/login', { email, password });
+      const res = await axios.post(`${baseURL}/api/users/login`, { email, password });
       setToken(res.data.token);
       setUser(res.data.user);
       return { error: null };
@@ -66,7 +66,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const signUp = async (username: string, email: string, password: string) => {
     setIsLoading(true);
     try {
-      const res = await axios.post('http://localhost:5000/api/users/register', { username, email, password });
+      const res = await axios.post(`${baseURL}/api/users/register`, { username, email, password });
       setToken(res.data.token);
       setUser(res.data.user);
       return { error: null };
