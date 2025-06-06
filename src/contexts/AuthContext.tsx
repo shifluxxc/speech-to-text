@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useEffect, useState, ReactNode } from 'react';
 import axios from 'axios';
-const baseURL = process.env.BaseURL; 
+const baseURL = "https://speech-to-text-server-45th.onrender.com"; 
 type User = {
   _id: string;
   username: string;
